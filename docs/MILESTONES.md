@@ -70,8 +70,8 @@ Current project status:
 | Milestone | Name | Status |
 | ----- | ----- | ----- |
 | M0 | Project Foundation | 🟢 COMPLETED |
-| M1 | UX Skeleton | ⬜ NOT STARTED |
-| M2 | Onboarding Content & Flow | ⬜ NOT STARTED |
+| M1 | UX Skeleton | 🟢 COMPLETED |
+| M2 | Onboarding Content & Flow | 🟢 COMPLETED |
 | M3 | Visual Identity | ⬜ NOT STARTED |
 | M4 | Operational UX | ⬜ NOT STARTED |
 | M5 | Responsive & Accessibility | ⬜ NOT STARTED |
@@ -176,7 +176,7 @@ M0 is complete when the project is technically ready to begin building the onboa
 
 ## **Status**
 
-⬜ NOT STARTED
+🟢 COMPLETED
 
 ## **Objective**
 
@@ -283,7 +283,7 @@ A first-time user can understand and complete the basic onboarding interaction w
 
 ## **Status**
 
-⬜ NOT STARTED
+🟢 COMPLETED
 
 ## **Objective**
 

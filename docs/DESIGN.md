@@ -751,3 +751,144 @@ Not:
 
 Every visual decision should serve the onboarding experience.
 
+## Brand Color & Logo
+
+### Purpose
+
+The onboarding portal should use Next TI's brand identity consistently while maintaining the clarity and neutrality required for an operational enterprise tool.
+
+Brand colors should function primarily as visual accents, interaction cues, and identity elements. They should not dominate the entire interface.
+
+### Brand Color Palette
+
+| Role      | Name             | HEX       | Intended Use                                          |
+| --------- | ---------------- | --------- | ----------------------------------------------------- |
+| Surface   | Whisper          | `#F4F0F7` | Supporting surfaces, subtle backgrounds               |
+| Border    | Logan            | `#BEABCF` | Borders, dividers, input outlines                     |
+| Secondary | Purple Mountains | `#9E82B7` | Secondary accents and supporting UI                   |
+| Primary   | Eminence         | `#5D2E87` | Primary actions, active states, key brand elements    |
+| Hover     | Jacarta          | `#4A256C` | Hover state for primary interactive elements          |
+| Pressed   | Grape            | `#381C51` | Pressed/active state for primary interactive elements |
+
+### Color Usage
+
+#### Primary — Eminence `#5D2E87`
+
+Use for:
+
+* Primary CTA buttons
+* Active navigation or milestone indicators
+* Key interactive elements
+* Important brand accents
+* Selected states where appropriate
+
+Do not use as:
+
+* The default background for large sections
+* The color of every heading or label
+* A decorative color without functional purpose
+
+#### Secondary — Purple Mountains `#9E82B7`
+
+Use for:
+
+* Secondary accents
+* Supporting visual emphasis
+* Secondary controls where appropriate
+* Non-critical brand-related UI elements
+
+Use sparingly so it does not compete with the primary action.
+
+#### Surface — Whisper `#F4F0F7`
+
+Use for:
+
+* Supporting surfaces
+* Subtle section backgrounds
+* Low-emphasis containers
+
+Do not use it as a replacement for every white/surface area.
+
+#### Border — Logan `#BEABCF`
+
+Use for:
+
+* Borders
+* Dividers
+* Input outlines
+* Subtle structural separation
+
+Borders should remain visually subordinate to content.
+
+### Interaction States
+
+Primary interactive elements should follow this hierarchy:
+
+* Default: `#5D2E87` — Eminence
+* Hover: `#4A256C` — Jacarta
+* Pressed: `#381C51` — Grape
+
+Interaction states must remain visually distinguishable without relying on animation alone.
+
+Disabled states should use a neutral treatment rather than simply applying a darker brand color.
+
+### Semantic Colors
+
+Brand colors must not replace semantic status colors.
+
+Use separate semantic colors for:
+
+* Success
+* Warning
+* Error
+* Informational
+* Blocked
+* Waiting
+
+Semantic meaning must remain distinguishable from Next TI brand identity.
+
+### Logo Usage
+
+The Next TI logo is a brand asset and should be stored as an application asset, outside the `/docs` directory.
+
+Recommended project structure:
+
+```text
+public/
+└── next-ti-logo.png
+```
+
+Use the logo primarily for:
+
+* Application header
+* Appropriate onboarding context
+* Footer or supporting brand placement where necessary
+
+The logo should not be:
+
+* Repeated unnecessarily throughout the interface
+* Used as decorative content
+* Placed inside excessive cards or containers
+* Altered, recolored, distorted, or unnecessarily stylized
+
+Do not invent official logo clear-space, minimum-size, or color-reproduction rules unless an official Next TI brand guideline explicitly provides them.
+
+### Contrast & Accessibility
+
+Brand colors must be evaluated against their intended background before use for text or interactive controls.
+
+Do not use a brand color for text merely because it matches the visual identity. Readability and WCAG contrast requirements take priority.
+
+If a brand color does not provide sufficient contrast for a specific text/background combination, use an appropriate neutral or semantic treatment instead.
+
+### Design Principle
+
+Next TI branding should be recognizable but restrained.
+
+The interface should feel like:
+
+> A professional Next TI operational onboarding tool.
+
+It should not feel like:
+
+> A marketing website or a heavily branded promotional experience.

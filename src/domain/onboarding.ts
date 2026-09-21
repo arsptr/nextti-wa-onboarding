@@ -33,9 +33,23 @@ export interface ChecklistItem {
 export interface Blocker {
   id: string;
   title: string;
-  description: string;
+  whatHappened: string;
+  whyItMatters: string;
   owner: Owner;
+  whatToCheck: string;
+  nextTiHelp: string;
   nextAction?: string;
+}
+
+export interface StepAction {
+  id: string;
+  owner: Owner;
+  description: string;
+}
+
+export interface ExternalDependency {
+  owner: Owner;
+  description: string;
 }
 
 export interface OnboardingStep {
@@ -43,12 +57,16 @@ export interface OnboardingStep {
   number: number;
   title: string;
   description: string;
+  objective: string;
   owner: Owner[];
   status: OnboardingStatus;
   prerequisites?: Prerequisite[];
+  actions: StepAction[];
+  externalDependency?: ExternalDependency;
   checklist: ChecklistItem[];
   blockers?: Blocker[];
-  nextAction?: string;
+  nextAction: string;
+  exitCriteria: string;
 }
 
 export interface Milestone {
