@@ -1,0 +1,20 @@
+{
+  "name": "nextti-wa-onboarding",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Foundation for the Next TI WhatsApp onboarding portal.",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "npm run build && node scripts/dev-server.mjs",
+    "lint": "tsc --noEmit",
+    "start": "npm run build && node scripts/dev-server.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2"
+  }
+}

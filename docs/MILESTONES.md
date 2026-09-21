@@ -69,7 +69,7 @@ Current project status:
 
 | Milestone | Name | Status |
 | ----- | ----- | ----- |
-| M0 | Project Foundation | ⬜ NOT STARTED |
+| M0 | Project Foundation | 🟢 COMPLETED |
 | M1 | UX Skeleton | ⬜ NOT STARTED |
 | M2 | Onboarding Content & Flow | ⬜ NOT STARTED |
 | M3 | Visual Identity | ⬜ NOT STARTED |
@@ -108,7 +108,7 @@ Some implementation details may naturally overlap, but the product must not be c
 
 ## **Status**
 
-⬜ NOT STARTED
+🟢 COMPLETED
 
 ## **Objective**
 
