@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { onboardingPlan } from "../dist/src/data/onboarding.js";
 import { canContinue, requirementLabel } from "../dist/src/domain/checklist.js";
+import { isAllStepsComplete } from "../dist/src/app.js";
 
 const item = (required, completed) => ({ id: `${required}-${completed}`, label: "Test item", required, completed });
 
@@ -69,4 +70,33 @@ test("canonical M2 checklist remains the only required progression set", () => {
     requiredChecklist.map((item) => item.label),
     canonicalM2Checklist,
   );
+});
+
+test("step 2 reflects customer-side submission while Meta verification is asynchronous", () => {
+  const step2 = onboardingPlan.milestones[1].steps[0];
+  assert.match(step2.nextAction, /submission|asynchronous|verified/i);
+  assert.doesNotMatch(step2.nextAction, /continue once Meta shows Verified/i);
+  assert.doesNotMatch(step2.exitCriteria, /Meta has confirmed the business as Verified/i);
+  assert.match(step2.description, /verification process/i);
+  assert.match(step2.blockers[0].whatHappened, /has not yet reached.*Verified state/i);
+});
+
+test("all steps complete is detected without a separate Meta verification gate", () => {
+  const plan = JSON.parse(JSON.stringify(onboardingPlan));
+  plan.milestones.forEach((milestone) => {
+    milestone.steps.forEach((step) => {
+      step.status = "Completed";
+    });
+  });
+  assert.equal(isAllStepsComplete(plan), true);
+});
+
+test("step 3 clarifies asynchronous Meta review is external and not a hard portal gate", () => {
+  const step3 = onboardingPlan.milestones[2].steps[0];
+  assert.match(step3.description, /Meta verification may still be pending externally/i);
+  assert.match(step3.prerequisites[0].description, /Step 2/i);
+  assert.match(step3.externalDependency.description, /not a new portal Continue gate/i);
+  assert.match(step3.nextAction, /may still be in progress externally/i);
+  assert.doesNotMatch(step3.nextAction, /wait until Meta is Verified before proceeding/i);
+  assert.doesNotMatch(step3.exitCriteria, /Meta Verified is required to continue/i);
 });

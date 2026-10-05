@@ -1,7 +1,7 @@
 import { onboardingPlan } from "./data/onboarding.js";
 import type { OnboardingPlan, OnboardingStatus } from "./domain/onboarding.js";
 
-const app = document.querySelector<HTMLElement>("#app");
+const app = typeof document !== "undefined" ? document.querySelector<HTMLElement>("#app") : undefined;
 
 type View = "overview" | "step";
 
@@ -11,6 +11,10 @@ let view: View = "overview";
 
 function allSteps(plan: OnboardingPlan) {
   return plan.milestones.flatMap((milestone) => milestone.steps);
+}
+
+export function isAllStepsComplete(plan: OnboardingPlan) {
+  return allSteps(plan).every((step) => step.status === "Completed");
 }
 
 function currentStep() {
@@ -57,6 +61,10 @@ function updateStatuses() {
 
 function renderError() {
   return `<main class="shell"><p class="eyebrow">Next TI WhatsApp Onboarding</p><h1>Onboarding structure unavailable</h1><p>There is no step data to display yet.</p></main>`;
+}
+
+function renderBrandHeader() {
+  return `<header class="app-header"><img src="/next-ti-logo.png" alt="Next TI" /><span>WhatsApp Onboarding</span></header>`;
 }
 
 function updateChecklistControls(stepId: string) {
@@ -171,12 +179,36 @@ function renderStepList() {
 function renderOverview() {
   const step = currentStep();
   if (!step) return renderError();
+
+  if (isAllStepsComplete(onboardingPlan)) {
+    return `
+      <main class="shell">
+        ${renderBrandHeader()}
+        <header class="page-header">
+          <p class="eyebrow">Next TI WhatsApp Onboarding</p>
+          <h1>Onboarding complete</h1>
+          <p class="intro">This overview shows your current position and the next stage in the onboarding process.</p>
+        </header>
+        <div class="layout">
+          <aside>${renderMilestones()}${renderStepList()}</aside>
+          <section class="content-column" aria-labelledby="completion-heading">
+            <div class="current-callout">
+              <p class="section-label">Status</p>
+              <h2 id="completion-heading">Complete</h2>
+              <p>Your WhatsApp onboarding journey is complete. All required steps in this portal are finished.</p>
+            </div>
+          </section>
+        </div>
+      </main>
+    `;
+  }
+
   return `
     <main class="shell">
       <header class="page-header">
         <p class="eyebrow">Next TI WhatsApp Onboarding</p>
         <h1>Start with the onboarding path.</h1>
-        <p class="intro">This working outline shows how a customer moves from one step to the next. Operational instructions will be added later.</p>
+        <p class="intro">This overview shows your current position and the next stage in the onboarding process.</p>
       </header>
       <div class="layout">
         <aside>${renderMilestones()}${renderStepList()}</aside>
