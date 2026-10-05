@@ -1,13 +1,24 @@
 :root {
-  color: #20313a;
-  background: #f4f1ea;
-  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
-  --ink: #20313a;
-  --muted: #5d6b6f;
-  --line: #c8d0cc;
-  --surface: #fffdf8;
-  --accent: #0c6e69;
-  --accent-soft: #dbece6;
+  color: var(--color-text);
+  background: var(--color-brand-surface);
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  --color-brand-surface: #F4F0F7;
+  --color-brand-border: #BEABCF;
+  --color-brand-secondary: #9E82B7;
+  --color-brand-primary: #5D2E87;
+  --color-brand-hover: #4A256C;
+  --color-brand-pressed: #381C51;
+  --color-text: #2a2130;
+  --color-muted: #62586a;
+  --color-surface: #ffffff;
+  --color-disabled-surface: #e7e1eb;
+  --color-disabled-text: #5f5667;
+  --color-blocker-border: #b56d4d;
+  --color-blocker-surface: #fff8f0;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 body {
@@ -15,11 +26,39 @@ body {
   min-width: 320px;
 }
 
+img {
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
 .shell {
   box-sizing: border-box;
   max-width: 74rem;
   margin: 0 auto;
   padding: 3rem clamp(1.25rem, 4vw, 4rem) 5rem;
+}
+
+.app-header {
+  display: flex;
+  gap: 0.85rem;
+  align-items: center;
+  margin-bottom: 3.5rem;
+  color: var(--color-text);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.app-header img {
+  display: block;
+  width: 4.75rem;
+  height: auto;
 }
 
 .page-header,
@@ -55,7 +94,7 @@ p {
 .eyebrow,
 .section-label,
 .milestone-number {
-  color: var(--accent);
+  color: var(--color-brand-primary);
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -68,7 +107,7 @@ p {
 
 .intro {
   max-width: 42rem;
-  color: var(--muted);
+  color: var(--color-muted);
   font-size: 1.05rem;
 }
 
@@ -77,6 +116,10 @@ p {
   grid-template-columns: minmax(15rem, 18rem) minmax(0, 1fr);
   gap: clamp(2rem, 6vw, 6rem);
   align-items: start;
+}
+
+.content-column {
+  min-width: 0;
 }
 
 aside {
@@ -99,13 +142,24 @@ aside {
   gap: 0.75rem;
   align-items: start;
   padding: 0.8rem 0;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var(--color-brand-border);
 }
 
 .milestone strong,
 .status-label,
 .milestone-number {
   display: block;
+}
+
+.milestone strong,
+.status-label,
+.step-link strong,
+.step-link small,
+.check-item-task,
+.check-item-requirement,
+.owner-label {
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .milestone strong {
@@ -117,28 +171,28 @@ aside {
   place-items: center;
   width: 1.8rem;
   height: 1.8rem;
-  border: 1px solid var(--line);
+  border: 1px solid var(--color-brand-border);
   border-radius: 50%;
-  color: var(--muted);
+  color: var(--color-muted);
   font-size: 0.8rem;
 }
 
 .milestone-current .status-mark {
-  border-color: var(--accent);
-  color: var(--accent);
+  border-color: var(--color-brand-primary);
+  color: var(--color-brand-primary);
 }
 
 .milestone-completed .status-mark {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: var(--surface);
+  background: var(--color-brand-primary);
+  border-color: var(--color-brand-primary);
+  color: var(--color-surface);
 }
 
 .status-label,
 .status-line,
 .helper-text,
 .step-link small {
-  color: var(--muted);
+  color: var(--color-muted);
   font-size: 0.86rem;
 }
 
@@ -149,28 +203,35 @@ aside {
   width: 100%;
   min-height: 3.25rem;
   padding: 0.7rem;
-  border: 1px solid var(--line);
+  border: 1px solid var(--color-brand-border);
   border-radius: 0.35rem;
   background: transparent;
-  color: var(--ink);
+  color: var(--color-text);
   text-align: left;
   cursor: pointer;
+  touch-action: manipulation;
 }
 
 .step-link:not(:disabled):hover,
 .step-link.is-active {
-  border-color: var(--accent);
-  background: var(--accent-soft);
+  border-color: var(--color-brand-primary);
+  background: var(--color-brand-surface);
+}
+
+.step-link:not(:disabled):active {
+  border-color: var(--color-brand-pressed);
+  background: var(--color-brand-pressed);
+  color: var(--color-surface);
 }
 
 .step-link:disabled {
-  color: var(--muted);
+  color: var(--color-disabled-text);
   cursor: not-allowed;
   opacity: 0.72;
 }
 
 .step-link-number {
-  color: var(--accent);
+  color: var(--color-brand-primary);
   font-weight: 700;
 }
 
@@ -187,13 +248,13 @@ aside {
 .checklist {
   max-width: 42rem;
   padding: clamp(1.5rem, 4vw, 3rem);
-  border: 1px solid var(--line);
+  border: 1px solid var(--color-brand-border);
   border-radius: 0.5rem;
-  background: var(--surface);
+  background: var(--color-surface);
 }
 
 .current-callout {
-  border-top: 0.35rem solid var(--accent);
+  border-top: 0.35rem solid var(--color-brand-primary);
 }
 
 .status-line {
@@ -204,7 +265,7 @@ aside {
 }
 
 .status-line span {
-  color: var(--accent);
+  color: var(--color-brand-primary);
 }
 
 .primary-action,
@@ -215,18 +276,30 @@ aside {
   font: inherit;
   font-weight: 700;
   cursor: pointer;
+  touch-action: manipulation;
 }
 
 .primary-action {
-  border: 1px solid var(--accent);
-  background: var(--accent);
-  color: var(--surface);
+  border: 1px solid var(--color-brand-primary);
+  background: var(--color-brand-primary);
+  color: var(--color-surface);
+  transition: background-color 140ms ease, border-color 140ms ease;
+}
+
+.primary-action:hover {
+  border-color: var(--color-brand-hover);
+  background: var(--color-brand-hover);
+}
+
+.primary-action:active {
+  border-color: var(--color-brand-pressed);
+  background: var(--color-brand-pressed);
 }
 
 .primary-action:disabled {
-  border-color: var(--line);
-  background: #e3e5e0;
-  color: #526064;
+  border-color: var(--color-brand-border);
+  background: var(--color-disabled-surface);
+  color: var(--color-disabled-text);
   cursor: not-allowed;
 }
 
@@ -234,7 +307,7 @@ aside {
   margin-bottom: 2rem;
   border: 0;
   background: transparent;
-  color: var(--accent);
+  color: var(--color-brand-primary);
   padding-left: 0;
   text-decoration: underline;
 }
@@ -242,14 +315,14 @@ aside {
 .sequence-note {
   max-width: 34rem;
   padding: 1.25rem 0;
-  color: var(--muted);
+  color: var(--color-muted);
 }
 
 .next-action {
   max-width: 38rem;
   padding: 0.85rem 1rem;
-  border-left: 0.25rem solid var(--accent);
-  background: var(--accent-soft);
+  border-left: 0.25rem solid var(--color-brand-primary);
+  background: var(--color-brand-surface);
 }
 
 .step-details {
@@ -262,7 +335,7 @@ aside {
 .detail-section,
 .exit-section {
   padding: 1rem 0;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var(--color-brand-border);
 }
 
 .detail-section p:last-child,
@@ -292,7 +365,7 @@ aside {
 }
 
 .owner-label {
-  color: var(--accent);
+  color: var(--color-brand-primary);
   font-size: 0.78rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -300,16 +373,16 @@ aside {
 
 .dependency-section {
   padding: 1rem;
-  border: 1px solid var(--line);
+  border: 1px solid var(--color-brand-border);
   border-radius: 0.35rem;
-  background: #f0eee8;
+  background: var(--color-brand-surface);
 }
 
 .blocker-section {
   padding: 1.25rem;
-  border: 1px solid #c98d6c;
+  border: 1px solid var(--color-blocker-border);
   border-radius: 0.35rem;
-  background: #fff8f0;
+  background: var(--color-blocker-surface);
 }
 
 .blocker-section h3 {
@@ -329,7 +402,7 @@ aside {
 }
 
 .blocker-section dt {
-  color: var(--muted);
+  color: var(--color-muted);
   font-size: 0.84rem;
   font-weight: 700;
 }
@@ -352,10 +425,43 @@ aside {
   align-items: flex-start;
   min-height: 2.75rem;
   padding: 0.75rem;
-  border: 1px solid var(--line);
+  border: 1px solid var(--color-brand-border);
   border-radius: 0.35rem;
   cursor: pointer;
   line-height: 1.45;
+  transition: background-color 180ms ease, border-color 180ms ease;
+  touch-action: manipulation;
+}
+
+.check-item:has(input:checked) {
+  border-color: var(--color-brand-primary);
+  background: var(--color-brand-surface);
+}
+
+.check-item:has(input:checked) .check-item-task {
+  color: var(--color-muted);
+  text-decoration: line-through;
+}
+
+.check-item-content {
+  display: flex;
+  flex: 1 1 auto;
+  min-width: 0;
+  gap: 1rem;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.check-item-task {
+  min-width: 0;
+}
+
+.check-item-requirement {
+  flex: 0 0 auto;
+  color: var(--color-muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
 }
 
 .check-item input {
@@ -363,7 +469,8 @@ aside {
   width: 1.25rem;
   height: 1.25rem;
   margin: 0.1rem 0 0;
-  accent-color: var(--accent);
+  accent-color: var(--color-brand-primary);
+  cursor: pointer;
 }
 
 .helper-text {
@@ -371,7 +478,16 @@ aside {
 }
 
 :focus-visible {
-  outline: 3px solid #d26b2d;
+  outline: 3px solid var(--color-brand-pressed);
+  outline-offset: 3px;
+}
+
+.step-link:focus-visible,
+.primary-action:focus-visible,
+.back-link:focus-visible,
+.check-item:focus-within,
+.check-item input:focus-visible {
+  outline: 3px solid var(--color-brand-pressed);
   outline-offset: 3px;
 }
 
@@ -385,6 +501,12 @@ aside {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .check-item {
+    transition: none;
+  }
 }
 
 @media (max-width: 760px) {
@@ -425,5 +547,44 @@ aside {
   .current-callout,
   .checklist {
     padding: 1.25rem;
+  }
+
+  .check-item-content {
+    display: grid;
+    gap: 0.2rem;
+    justify-items: start;
+  }
+}
+
+@media (max-width: 560px) {
+  .shell {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .app-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .app-header img {
+    width: 3.5rem;
+  }
+
+  .step-link {
+    grid-template-columns: 1.5rem 1fr;
+    padding: 0.6rem 0.7rem;
+  }
+
+  .check-item {
+    padding: 0.65rem;
+  }
+
+  .check-item-content {
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+
+  .check-item-requirement {
+    margin-top: 0.15rem;
   }
 }
