@@ -9,6 +9,7 @@
     "dev": "npm run build && node scripts/dev-server.mjs",
     "lint": "tsc --noEmit",
     "start": "npm run build && node scripts/dev-server.mjs",
+    "test": "npm run build && node --test test/**/*.test.mjs",
     "typecheck": "tsc --noEmit"
   },
   "engines": {

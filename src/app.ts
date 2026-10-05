@@ -1,11 +1,11 @@
 import { onboardingPlan } from "./data/onboarding.js";
+import { canContinue, requirementLabel } from "./domain/checklist.js";
 import type { OnboardingPlan, OnboardingStatus } from "./domain/onboarding.js";
 
 const app = typeof document !== "undefined" ? document.querySelector<HTMLElement>("#app") : undefined;
 
 type View = "overview" | "step";
 
-const checklistState = new Map<string, boolean>();
 let currentStepId = onboardingPlan.currentStepId ?? onboardingPlan.milestones[0]?.steps[0]?.id;
 let view: View = "overview";
 
@@ -32,7 +32,7 @@ function isUnlocked(stepId: string) {
 
 function isRequiredComplete(stepId: string) {
   const step = allSteps(onboardingPlan).find((item) => item.id === stepId);
-  return Boolean(step && step.checklist.filter((item) => item.required).every((item) => checklistState.get(item.id)));
+  return Boolean(step && canContinue(step.checklist));
 }
 
 function statusMark(status: OnboardingStatus) {
@@ -256,8 +256,11 @@ function renderStep() {
               <legend class="visually-hidden">Required confirmations for ${step.title}</legend>
               ${step.checklist.map((item) => `
                 <label class="check-item">
-                  <input type="checkbox" data-checklist-id="${item.id}" ${checklistState.get(item.id) ? "checked" : ""} ${item.required ? "required" : ""} />
-                  <span>${item.label}${item.required ? "" : " (optional)"}</span>
+                  <input type="checkbox" data-checklist-id="${item.id}" ${item.completed ? "checked" : ""} ${item.required ? "required" : ""} />
+                  <span class="check-item-content">
+                    <span class="check-item-task">${item.label}</span>
+                    <span class="check-item-requirement">${requirementLabel(item.required)}</span>
+                  </span>
                 </label>
               `).join("")}
             </fieldset>
@@ -303,7 +306,9 @@ function bindEvents() {
   app?.querySelectorAll<HTMLInputElement>("[data-checklist-id]").forEach((checkbox) => {
     const updateChecklistState = () => {
       const checklistId = checkbox.dataset.checklistId;
-      if (checklistId) checklistState.set(checklistId, checkbox.checked);
+      const step = currentStep();
+      const item = step?.checklist.find((checklistItem) => checklistItem.id === checklistId);
+      if (item) item.completed = checkbox.checked;
       const stepId = checkbox.closest<HTMLElement>("[data-step-id]")?.dataset.stepId;
       if (stepId) updateChecklistControls(stepId);
     };

@@ -28,6 +28,7 @@ export interface ChecklistItem {
   id: string;
   label: string;
   required: boolean;
+  completed: boolean;
 }
 
 export interface Blocker {
