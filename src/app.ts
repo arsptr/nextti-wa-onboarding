@@ -187,7 +187,7 @@ function renderOverview() {
         <header class="page-header">
           <p class="eyebrow">Next TI WhatsApp Onboarding</p>
           <h1>Onboarding complete</h1>
-          <p class="intro">This overview shows your current position and the next stage in the onboarding process.</p>
+          <p class="intro">This overview confirms that your onboarding is complete.</p>
         </header>
         <div class="layout">
           <aside>${renderMilestones()}${renderStepList()}</aside>
